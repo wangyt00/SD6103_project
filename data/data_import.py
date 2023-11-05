@@ -3,7 +3,7 @@ from sqlalchemy import create_engine
 
 def csv2sql_dblp(_csv_address,table):
     #  change the connection, username and password to your own
-    engine =create_engine('mysql+pymysql://root:MySQL#lwz1009Inhp~m5mgE39W+OISLRe@localhost:3306/dblp')
+    engine =create_engine('mysql+pymysql://your_username:your_password@localhost:your_port/dblp')
 
     print(f'Loading data from {_csv_address}...')
     db = pd.read_csv(_csv_address)
