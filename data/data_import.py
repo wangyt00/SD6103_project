@@ -2,30 +2,50 @@ import pandas as pd
 from sqlalchemy import create_engine
 
 def csv2sql_dblp(_csv_address,table):
-    engine =create_engine('mysql://root:jd64987645@localhost/dblp')
+    #  change the connection, username and password to your own
+    engine =create_engine('mysql+pymysql://your_username:your_password@localhost:your_port/dblp')
 
+    print(f'Loading data from {_csv_address}...')
     db = pd.read_csv(_csv_address)
+    # db.fillna('',inplace=True)
+    print(f'Start importing data...')
+    db.to_sql(name = table,con = engine,index = False, if_exists='append', chunksize=1000)
 
-    db.to_sql(name = table,con = engine,index = False,if_exists='replace')
-
-    print("Data has been imported to mysql table"+table)
+    print(f"Data has been imported to mysql table dblp.{table}")
 
 def read_data(file):
     return 'csv_files/'+file
 
-author_path = read_data('authors.csv')
-csv2sql_dblp(author_path,'author')
-article_path = read_data('cleaned_article.csv')
-csv2sql_dblp(article_path,'article')
-book_path = read_data('cleaned_book.csv')
-csv2sql_dblp(book_path,'publish')
-proceeding_path = read_data('cleaned_proceeding.csv')
-csv2sql_dblp(proceeding_path,'publish')
-inproceeding_path = read_data('cleaned_inproceeding.csv')
-csv2sql_dblp(inproceeding_path,'in_')
-incollection_path = read_data('cleaned_incollection.csv')
-csv2sql_dblp(incollection_path,'in_')
-master_path = read_data('cleaned_masterthesis.csv')
-csv2sql_dblp(master_path,'thesis')
-phd_path = read_data('cleaned_phdthesis.csv')
-csv2sql_dblp(phd_path,'thesis')
+
+# before runing this file, you should create a database named 'dblp' in mysql, then execute the given sql files to create tables
+# and make sure the tables are empty to avoid duplicate data
+if __name__ == "__main__":
+    author_path = read_data('authors.csv')
+    csv2sql_dblp(author_path,'author')
+
+    article_path = read_data('article.csv')
+    csv2sql_dblp(article_path,'article')
+
+    book_path = read_data('book.csv')
+    csv2sql_dblp(book_path,'publish')
+
+    proceeding_path = read_data('proceedings.csv')
+    csv2sql_dblp(proceeding_path,'publish')
+
+    inproceeding_path = read_data('inproceedings.csv')
+    csv2sql_dblp(inproceeding_path,'in_')
+
+    incollection_path = read_data('incollection.csv')
+    csv2sql_dblp(incollection_path,'in_')
+
+    master_path = read_data('masterthesis.csv')
+    csv2sql_dblp(master_path,'thesis')
+    
+    phd_path = read_data('phdthesis.csv')
+    csv2sql_dblp(phd_path,'thesis')
+
+    author_relation_path = read_data('R_author.csv')
+    csv2sql_dblp(author_relation_path,'r_author')
+
+    editor_relation_path = read_data('R_editor.csv')
+    csv2sql_dblp(editor_relation_path,'r_editor')
