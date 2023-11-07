@@ -11,5 +11,6 @@ CREATE TABLE thesis (
     title VARCHAR(255),
     school VARCHAR(255),
     year INT,
-    ee VARCHAR(255)
+    ee VARCHAR(255),
+    _type VARCHAR(255),
 );

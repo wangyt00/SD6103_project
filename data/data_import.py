@@ -3,7 +3,8 @@ from sqlalchemy import create_engine
 
 def csv2sql_dblp(_csv_address,table):
     #  change the connection, username and password to your own
-    engine =create_engine('mysql+pymysql://your_username:your_password@localhost:your_port/dblp')
+    # engine =create_engine('mysql+pymysql://your_username:your_password@localhost:your_port/dblp')
+    engine =create_engine('mysql+pymysql://root:MySQL#lwz1009Inhp~m5mgE39W+OISLRe@localhost:3306/dblp')
 
     print(f'Loading data from {_csv_address}...')
     db = pd.read_csv(_csv_address)
@@ -44,8 +45,12 @@ if __name__ == "__main__":
     phd_path = read_data('phdthesis.csv')
     csv2sql_dblp(phd_path,'thesis')
 
+    www_path = read_data('www.csv')
+
     author_relation_path = read_data('R_author.csv')
     csv2sql_dblp(author_relation_path,'r_author')
 
     editor_relation_path = read_data('R_editor.csv')
     csv2sql_dblp(editor_relation_path,'r_editor')
+
+    
