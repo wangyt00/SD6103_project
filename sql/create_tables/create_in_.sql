@@ -13,8 +13,8 @@ CREATE TABLE in_ (
     crossref VARCHAR(255),
     booktitle VARCHAR(255),
     ee VARCHAR(255),   
-    _url VARCHAR(255)
-    _type VARCHAR(255),
+    _url VARCHAR(255),
+    _type VARCHAR(255)
 );
 
 
